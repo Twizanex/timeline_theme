@@ -26,6 +26,14 @@ $site_name = $site->name;
 
 
 ?>
+<?php 
+
+// TM: let us load our Timeline Javascript Scroll to the top
+
+//echo elgg_view('page/elements/js/timeline_theme');
+
+?>
+
 <div class="footer_area clear">										<!-- opening footer area section -->
     <div class="wrapper">											<!-- opening wrapper section -->
 

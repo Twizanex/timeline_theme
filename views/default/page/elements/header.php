@@ -61,6 +61,9 @@ if (isset($vars['class'])) {
 // insert site-wide navigation
 //echo elgg_view_menu('site');
 ?>
+
+
+
 <?php if (!elgg_is_logged_in()) { ?>
 
 <div class="top_bar">												<!-- main top_black bar -->
@@ -106,8 +109,8 @@ if (isset($vars['class'])) {
 
  <?php } ?>
 
+<!-- TM: The Javascript is causing issues with elgg widgets so don't uncomment unless you are testing or deburging   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script> -->
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -183,6 +186,9 @@ $(document).ready(function(){
 });
 </script>
 
+
+<!-- TM: THe Javascript to load the page to the top was loading here but now extended to the footer -->
+
 <?php
 
 // let us grab the onwner icons or groups icons
@@ -216,15 +222,15 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
 
 
 <!--[if lt IE 9]>
-<script src="<?php echo elgg_get_site_url(); ?>/js/html5.js" type="text/javascript"></script>
+<script src="<?php echo elgg_get_site_url(); ?>/mod/timeline_theme/views/default/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 
 
-</head>
 
 
 
-<body>
+
+
 
 
 
@@ -243,13 +249,7 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
             
             
             
-            </div>
-            
-            
-			
-      
-            
-</nav>
+  
 
 
 <div id="page" class="hfeed timeline-separator">
@@ -264,7 +264,7 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
      
       ?>   
            
-<header id="branding" role="banner">
+<div id="branding" role="banner">
 
 	
 			
@@ -300,7 +300,7 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
 
 <?php } ?>       
             
-    <h2 id="site-description">The First Timeline_theme for ELgg  (v1.8.15)</h2>
+    <h2 id="site-description">The Official <?php echo $site_name; ?> Site</h2>
     
     </span></h1>           
                      
@@ -386,5 +386,9 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
 
                        
 
-	</header><!-- #branding -->
+</div>	<!-- #branding -->
+	
+	
+
+</div>
 

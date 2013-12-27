@@ -53,7 +53,7 @@ header("Content-type: text/html; charset=UTF-8");
 	
 <!--	<div class="elgg-page-header">
 		<div class="elgg-inner">-->
-			<?php echo $header; ?>
+			<?php  echo $header; ?>
 <!--		</div>
 	</div>-->
         

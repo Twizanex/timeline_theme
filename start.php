@@ -34,6 +34,13 @@ function timeline_init() {
 
 	// add to the main css
 	elgg_extend_view('css/elgg', 'timeline_theme/css');
+	
+	/**
+         * Miscellaneous  javascript customizations
+         */
+  //     elgg_extend_view('page/elements/footer', 'page/elements/js/timeline_theme.php', '701');//scrol to the top
+      //  elgg_extend_view('js/elgg', 'js/timeline_theme');
+        
 
         elgg_unextend_view('page/elements/header', 'search/header');
         
@@ -46,6 +53,9 @@ function timeline_init() {
 	elgg_extend_view('page/elements/header.php', 'page/elements/ownericon/owner_block_icon.php', '500');//Tom : Invocational codes
 	
 	//Menu Customization	
+	
+	
+	
 
 }
 

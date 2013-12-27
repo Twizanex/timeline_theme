@@ -77,7 +77,7 @@
 
 /***** PAGE HEADER ******/
 
-/*
+
 
 
 .elgg-page-header {
@@ -88,17 +88,17 @@
 	position: relative;
 }
 
-*/
+
 /***** PAGE BODY LAYOUT ******/
 
-/*
+
 
 
 .elgg-layout {
 	min-height: 360px;
 }
 
-*/
+
 
 .elgg-layout-one-sidebar {
 	/*background: transparent url(<?php echo elgg_get_site_url(); ?>_graphics/sidebar_background.gif) repeat-y right top;*/
@@ -126,7 +126,7 @@
 	float: left;
 	width: 160px;
 	margin: 0 10px 0 0;
-}/*
+}
 .elgg-main {
 	position: relative;
 	min-height: 360px;
@@ -139,7 +139,7 @@
 	margin-bottom: 10px;
 }
 
-*/
+
 /***** PAGE FOOTER ******/
 .elgg-page-footer {
 	position: relative;
