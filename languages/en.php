@@ -5,6 +5,11 @@
 
 $english = array(
 
+             'timeline:link:load_more' => 'Load More',
+             'timeline:link:loading' => 'Loading',
+             'timeline_my_pages:infinite_scroll:label' => 'Enable infinite scroll',
+
+
             'timeline:Finder' => 'TwizaNex',
             'forget:password' => "Forget your password ?",
             'home' => "Home",
@@ -32,7 +37,142 @@ $english = array(
             
             
             
-            
+                'timelinestyle' => 'Custom Style',
+		'timelinestyle:title' => 'Custom Style',
+		'timelinestyle:shorttitle' => 'Custom Style',
+		
+		
+		//objects
+		
+		
+		'item:object:timelinestylecolors' => 'Custom Style Colors Configuration',
+		'item:object:timelinestyletimeline' => 'Custom Style timeline Configuration',
+		
+		
+		'timelinestyle:spotlight' => 'This plugin allows you to fully customize your profile. Everyone who visits your profile will experience it how you defined it. You have control over the timeline and some colors. If you dont like your own choices anymore, you can switch back to default settings. Have <b>fun</b> and be <b>creative</b>!',
+		
+		//admin settings
+		'timelinestyle:settings:options' => 'Select which of the following items can be configured.',
+		'timelinestyle:settings:upload' => 'Allow upload of custom timeline images',
+		'timelinestyle:settings:maxupload' => 'Max upload image size (in bytes)',
+		'timelinestyle:settings:river' => 'Changes in style posted to the river',
+	         
+	         // Usaer profile and Admin timeline profile fields settings
+	         
+	         'profile:facebooks' => 'Follow me on Facebook',
+	         'profile:googlepluss' => 'Follow me on googleplus',
+	         'profile:youtubes' => 'Follow me on youtube',
+	         'profile:linkedins' => 'Follow me on linkedin',
+	         'profile:twitters' => 'Follow me on twitter',
+	         'profile:feedburner_email' => 'Follow me on feedburner email',
+	         'profile:feeds_feedburner_rss' => 'Follow me on feeds feedburner rss',
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		//menu
+		
+		'timelinestyle:menu:colors' => 'Colors',
+		'timelinestyle:menu:timeline' => 'timeline',
+		
+		//river
+		'river:update:user:default' => 'A new profile cover style update',
+		'timelinestyle:river:change' => '%s changed the profile style',
+	
+		//information
+		'timelinestyle:information:welcome' => 'The options in the menu give you the ability to change the look and feel of your personal profile. The changes you make will effect the appearance of your profile.',
+		'timelinestyle:information:colors' => 'Here you can change many colors of your profile or select from a predifined set of colors.',
+		'timelinestyle:information:timeline' => 'Here you can change the timeline image by selecting a default image or upload your own.',
+	
+		//colors config
+		'timelinestyle:colors:title' => 'Customize your profile colors',
+		'timelinestyle:colors:noconfig' => 'Currently you have no custom colors. The default colors will be used. If you want to configure your own colors press the button below.',
+		'timelinestyle:colors:customizebutton' => 'Yes, i would like to customize my colors!',
+		'timelinestyle:colors:reset' => 'Return to default color settings',
+		'timelinestyle:colors:selectstyle' => 'Choose one of the following default color sets or choose to customize everything.',
+		
+		'timelinestyle:colors:save:success' => 'Succesfully saved your colors.',
+		'timelinestyle:colors:reset:success' => 'Succesfully returned to default color settings.',
+		'timelinestyle:colors:configure:transparent' => 'Transparent',
+		
+		'timelinestyle:colors:configure:preset:title' => 'Preset colors',
+		'timelinestyle:colors:configure:preset:info' => 'Choose a preset colorscheme',
+		
+		
+		// configurable colors
+		'timelinestyle:colors:configure:timeline:title' => 'Configure timeline color',
+		'timelinestyle:colors:configure:timeline:info' => 'Select a color for the timeline. Check transparent for a transparent timeline.',
+		
+		'timelinestyle:colors:configure:headertimeline:title' => 'Configure header timeline color',
+		'timelinestyle:colors:configure:headertimeline:info' => 'Select a color for the header timeline. Check transparent for a transparent header timeline.',
+		
+		'timelinestyle:colors:configure:contenttimeline:title' => 'Configure content timeline color',
+		'timelinestyle:colors:configure:contenttimeline:info' => 'Select a color for the content timeline. Check transparent for a transparent timeline.',
+		
+		'timelinestyle:colors:configure:profilebox:title' => 'Configure profile box timeline color',
+		'timelinestyle:colors:configure:profilebox:info' => 'Select a color for the profile box timeline. Check transparent for a transparent timeline.',
+		
+		'timelinestyle:colors:configure:widgettitle:title' => 'Configure widget title color',
+		'timelinestyle:colors:configure:widgettitle:info' => 'Select a color for the widget title. Check transparent for a transparent color.',
+		
+		'timelinestyle:colors:configure:widgetheader:title' => 'Configure widget header timeline color',
+		'timelinestyle:colors:configure:widgetheader:info' => 'Select a color for the widget header timeline. Check transparent for a transparent timeline.',
+		
+		'timelinestyle:colors:configure:widgetbody:title' => 'Configure widget body timeline color',
+		'timelinestyle:colors:configure:widgetbody:info' => 'Select a color for the widget body timeline. Check transparent for a transparent timeline.',
+		
+		'timelinestyle:colors:configure:fontcolor:title' => 'Configure all font color',
+		'timelinestyle:colors:configure:fontcolor:info' => 'Select a color for all fonts. Check transparent for a transparent color.',
+		
+		'timelinestyle:colors:configure:linkcolor:title' => 'Configure link font color',
+		'timelinestyle:colors:configure:linkcolor:info' => 'Select a color for the links. Check transparent for a transparent color.',
+		
+		//timeline config
+		'timelinestyle:timeline:title' => 'Customize your profile timeline',
+		'timelinestyle:timeline:noconfig' => 'Currently you have no custom timeline. The default timeline will be used. If you want to configure your own timeline press the button below.',
+		'timelinestyle:timeline:customizebutton' => 'Yes, i would like to customize my timeline!',
+		'timelinestyle:timeline:selectinfo' => 'Choose one of the following default timelines or upload your own.',
+		'timelinestyle:timeline:customtimeline' => 'My own timeline',
+		'timelinestyle:timeline:currenttimeline' => 'Current image',
+		'timelinestyle:timeline:previouslyuploadedtimeline' => 'Previously uploaded',
+		'timelinestyle:timeline:reset' => 'Return to default timeline settings',
+		'timelinestyle:timeline:reset:success' => 'Succesfully returned to default timeline settings',
+		'timelinestyle:timeline:error:unknown' => 'Unknown error occurred. Please try again or contact your administrator.',
+		'timelinestyle:timeline:error:image' => 'Unknown image type or file too large.',
+		'timelinestyle:timeline:save:success' => 'Succesfully saved timeline configuration.',
+		
+		'timelinestyle:timeline:repeat:title' => 'timeline repeat',
+		'timelinestyle:timeline:repeat:description' => 'Change this to configure if the timeline is repeated',
+		// dont translate the keys in the next array, only the value's need to be translated
+		'timelinestyle:timeline:repeat:options' => array('repeat'=>'Repeat','repeat-x'=>'Only repeat horizontally','repeat-y'=>'Only repeat vertically','no-repeat'=>'Don\'t repeat the timeline'),
+
+		'timelinestyle:timeline:attachment:title' => 'timeline attachment',
+		'timelinestyle:timeline:attachment:description' => 'Change this to configure if the timeline is fixed or scrolls with the page',
+		// dont translate the keys in the next array, only the value's need to be translated
+		'timelinestyle:timeline:attachment:options' => array('scroll'=>'Scroll','fixed'=>'Fixed'),
+		
+		'timelinestyle:timeline:position:title' => 'timeline position',
+		'timelinestyle:timeline:position:description' => 'Change this to configure the position of the timeline',
+		// dont translate the keys in the next array, only the value's need to be translated
+		'timelinestyle:timeline:position:options' => array(
+			'top left'=>'Top Left',
+			'top center'=>'Top Center',
+			'top right'=>'Top Right',
+			'center left'=>'Center Left',
+			'center center'=>'Center Center',
+			'center right'=>'Center Right',
+			'bottom left'=>'Bottom Left',
+			'bottom center'=>'Bottom Center',
+			'bottom right'=>'Bottom Right'					
+			),
+		
+		'timelinestyle:reset:tocustom' => 'Show personalized design!',	
+		'timelinestyle:reset:todefault' => 'Show in normal design',   
             
             
     /*

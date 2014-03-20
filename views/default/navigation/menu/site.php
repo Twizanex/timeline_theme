@@ -7,27 +7,44 @@
  */
 
 $default_items = elgg_extract('default', $vars['menu'], array());
-//$more_items = elgg_extract('more', $vars['menu'], array());
+$more_items = elgg_extract('more', $vars['menu'], array());
 
 echo '<ul class="category-top">';
-echo '<li class=""></li>';
+
 foreach ($default_items as $menu_item) {
 	echo elgg_view('navigation/menu/elements/item', array('item' => $menu_item));
-        echo '<li class=""></li>';
+
 }
-/*
+
+
+
+echo '</ul>';
+
+// TM: moved autside the above class so that more links should be in its own class with no overflow hidden css property 
+echo '<ul class="category-top-more">';
+
 if ($more_items) {
-	echo '<li class="elgg-more">';
+
+
+        echo '<ul class="elgg-menu elgg-menu-site category-menu-site-default clearfix">';
+        
+	echo '<li class="category-more-more">';
 
 	$more = elgg_echo('more');
 	echo "<a href=\"#\">$more</a>";
+	
+	
+	
 	// TM: removed the class part. Check original code
 	echo elgg_view('navigation/menu/elements/section', array(
-		'class' => '', 
+		'class' => 'category-menu category-menu-site category-menu-site-more', 
 		'items' => $more_items,
 	));
 	
 	echo '</li>';
+	
+	echo '</ul>';
 }
-*/
+
 echo '</ul>';
+

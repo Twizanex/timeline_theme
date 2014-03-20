@@ -8,16 +8,25 @@
  * @subpackage Twenty_Eleven
  * @since Twenty Eleven 1.0
  */
- 
- 
+
  
  /**
 * Elgg header logo
 */
+global $CONFIG;
+
 
 $site = elgg_get_site_entity();
 $site_name = $site->name;
 $site_url = elgg_get_site_url();
+
+//$getontext = elgg_pop_context();
+//$getthecurrentguid = get_entity($getontext);
+$keronche = get_entity_dates();
+
+//$keronchetime = elgg_get_entity_time_where_sql();
+
+//print_r ($getthecurrentguid);	
  
 /**
 * Elgg title element
@@ -42,27 +51,11 @@ if (isset($vars['class'])) {
 
 //require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/start.php");
 
-        
+
+
+ $pageonwerguid = elgg_get_page_owner_guid();
+    
 ?>
-
-
-<?php
-/**
- * Elgg page header
- * In the default theme, the header lives between the topbar and main content area.
- */
-
-// link back to main site.
-//echo elgg_view('page/elements/header_logo', $vars);
-
-// drop-down login
-//echo elgg_view('core/account/login_dropdown');
-
-// insert site-wide navigation
-//echo elgg_view_menu('site');
-?>
-
-
 
 <?php if (!elgg_is_logged_in()) { ?>
 
@@ -104,7 +97,7 @@ if (isset($vars['class'])) {
     </div>															<!-- closing wrapper div -->
 </div>																<!-- closing main top bar -->
 
-
+<div id="timeline-hearder-container" > <!-- open container to holder -- the headers contentents  -->
 
 
  <?php } ?>
@@ -193,7 +186,10 @@ $(document).ready(function(){
 
 // let us grab the onwner icons or groups icons
 
-$owner = page_owner_entity();
+$owner = elgg_get_page_owner_entity(); // depending on which view you are using this function in
+
+
+
 
 if ($owner instanceof ElggEntity) {
 
@@ -204,8 +200,46 @@ if ($owner instanceof ElggUser || $owner instanceof ElggGroup) {
 
 $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
 
+	// let us grab the default timeline files "banners"
+	
+	$wallpaper_path = "mod/timeline_theme/graphics/wallpapers";
+	$imageArray = array();	
+	$dir_handle = opendir($CONFIG->path . $wallpaper_path);
+	while (($file = readdir($dir_handle)) !== false) {
+		if ($file!='.' && $file!='..' && !is_dir($dir.$entry)){
+			$dotPosition = strrpos($file,".");
+			if($dotPosition){
+				$shortFileName = substr($file,0,$dotPosition);
+				$imageArray[elgg_echo($shortFileName)] = $wallpaper_path . "/" . str_replace(" ", "%20",$file);
+			}
+		}
+	}
+	
+	// load default images
+	foreach($imageArray as $name=>$image){
+		if($i == 4) {
+			$i = 0;
+		}
+    
+
+
+}
+//$current_user = get_loggedin_userid();
+  
+		$current_user = elgg_get_page_owner_guid();
+                 $currentConfig = get_timeline_style_from_metadata($current_user, 'timelinestyletimeline');
+
+			// check for previously uploaded timeline
+		$filehandler = new ElggFile();
+		$filehandler->owner_guid = $current_user;
+		$filehandler->setFilename('customtimeline');
+		if($filehandler->exists()){
+			$imageUrl = 'pg/timeline_theme/getbackground?id=' . $current_user;
+
 }
 
+}
+  
  
 // echo $display; // just for testing
 
@@ -216,8 +250,6 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
 
 
 ?>
-<?php// var_dump ($okebemangongo);?>
-
 
 
 
@@ -226,23 +258,58 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
 <![endif]-->
 
 
-
-
-
-
-
-
-
-
-			
-                       
+		                    
             <div id="box-scrool-bar">
 
             <div class="timeline-scroll-bar">
                 
                 <li class="anchor_post_current"><a id="back-top" class='anchor_post' href="#top">Now</a></li>
-                
+              
+            <?php 
+                    
+                // only users can have archives at present
 
+      if ($owner instanceof ElggUser || $owner instanceof ElggGroup) {  
+       
+             $loggedin_user = elgg_get_logged_in_user_entity();
+  
+             $page_owner = elgg_get_page_owner_entity();
+    
+
+     if (elgg_instanceof($page_owner, 'user')) {
+	$url_segment = 'blog/archive/' . $page_owner->username;
+        } else {
+	$url_segment = 'blog/group/' . $page_owner->getGUID() . '/archive';
+         }
+
+        // This is a limitation of the URL schema.
+      if ($page_owner && $vars['page'] != 'friends') {
+	$dates = get_entity_dates('object', 'blog', $page_owner->getGUID());
+	
+	if ($dates) {
+//		$title = elgg_echo('show:timeline');
+		foreach ($dates as $date) {
+			$timestamplow = mktime(0, 0, 0, substr($date,4,2) , 1, substr($date, 0, 4));
+			$timestamphigh = mktime(0, 0, 0, ((int) substr($date, 4, 2)) + 1, 1, substr($date, 0, 4));
+
+			$link = elgg_get_site_url() . $url_segment . '/' . $timestamplow . '/' . $timestamphigh;
+			
+			$month = elgg_echo('date:month:' . substr($date, 4, 2), array(substr($date, 0, 4))) ;
+        
+            
+                      $okebe .= "<li><a href=\"$link\" title=\"$month\">$month</a></li>";
+			
+			
+		}
+
+		echo elgg_view_module('aside', $title, $okebe);
+	}
+        }  
+               
+           }
+    
+               ?>
+               
             </div><!-- #timeline-scroll-bar -->
             </div><!-- #box-scrool-bar -->
             
@@ -264,17 +331,74 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
      
       ?>   
            
-<div id="branding" role="banner">
+<div id="branding"  role="banner">
 
+ 
+
+	
+<?php
+	
+			// check for previously uploaded timeline_theme
+		$filehandler = new ElggFile();
+		$filehandler->owner_guid = $current_user;
+		$filehandler->setFilename('customtimeline'); 
+		
+		
+		//TM: let us now check if the imageurl is equl to the user's configured image
+		
+		if($imageUrl = $currentConfig["timeline-image"]){
+        
+	 ?>
+	 
 	
 			
 	<a href="<?php echo elgg_get_site_url();?>">
-<img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/headers/pine-cone.jpg" width="1000" height="288" alt="" />
+<img src="<?php echo elgg_get_site_url(); ?><?php echo $imageUrl?> " style='position:relative; width:990px; height:288px; top: 0px' alt="" />
 							</a>
 
-	
+	<?php }
+		else {  // not working well here
+           
+           
 
-				
+        ?>
+        
+  <?php  
+  
+   // let us load the default image
+
+  if($image != $currentConfig['timeline-image']){
+
+  if (!empty($image)) {
+
+$pleaseloaddefaultimage = ' . $CONFIG->wwwroot . $image . ';
+
+
+?>
+    
+        
+		
+	<a href="<?php echo elgg_get_site_url();?>"> <img src= "<?php echo $pleaseloaddefaultimage ?>" style='position:relative; width:990px; height:288px;  top: 0px;' alt="" />
+							</a>
+			
+
+<?php }} }
+
+//else {
+
+?>
+
+
+
+
+
+<?php  if (elgg_get_site_url() === current_page_url()){?>
+
+<a href="<?php echo elgg_get_site_url();?>">
+<img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/headers/pine-cone.jpg" width="1000" height="288" alt="" />
+							</a>	
+
+<?php } ?>
 
 			<hgroup>
 			
@@ -283,6 +407,10 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
 
  
 <?php 
+
+
+
+
 
  // Let us check if no context let use diplay the title of the page if context is == NULL let us grab site name
 
@@ -331,42 +459,54 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
               
             </hgroup>
             
-                       
+ <?php
+ 
+//Let us now getting the current Url values of user's external sites from user profile fields 
+  
+   $facebook = $owner->facebooks;
+   $googleplus = $owner->googlepluss;
+   $youtube = $owner->youtubes;
+   $linkedin = $owner->linkedins;
+   $twitter = $owner->twitters;
+   $feedburner_email = $owner->feedburner_email;
+   $feeds_feedburner_rss = $owner->feeds_feedburner_rss;      
+       
+ ?>                      
 
 <div id="social-icons">
 
 <h3 class="social-icons-title">Follow me on Social Media</h3>
 
-<a title="Follow on Facebook" href="<?php echo $site_url; ?>" target="_blank">
+<a title="Follow on Facebook" href="<?php echo $facebook; ?>" target="_blank">
 <img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/social-icons/facebook.gif" /></a> 
 
 
 
-<a href="<?php echo $site_url; ?>" title="Follow on Twitter" target="_blank">
+<a href="<?php echo $twitter; ?>" title="Follow on Twitter" target="_blank">
 <img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/social-icons/twitter.gif" /></a> 
 
 
 
-<a title="Follow on Linkedin" href="<?php echo $site_url; ?>" target="_blank">
+<a title="Follow on Linkedin" href="<?php echo $linkedin; ?>" target="_blank">
 <img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/social-icons/linkedin.gif" /></a> 
 
 
 
-<a title="Follow on YouTube" href="<?php echo $site_url; ?>" target="_blank">
+<a title="Follow on YouTube" href="<?php echo $youtube; ?>" target="_blank">
 <img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/social-icons/youtube.gif" /></a> 
 
 
 
-<a href="<?php echo $site_url; ?>" title="Follow on Google+" target="_blank">
+<a title="Follow on Google+" href="<?php echo $googleplus; ?>"  target="_blank">
 <img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/social-icons/google-plus.gif" /></a> 
 
 
-<a title="Follow with Email" href="<?php echo $site_url; ?>" target="_blank">
+<a title="Follow with Email" href="<?php echo $feedburner_email; ?>" target="_blank">
 <img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/social-icons/email-rss.gif" /></a> 
 
 
 
-<a href="<?php echo $site_url; ?>" title="Follow with Feed RSS" target="_blank">
+<a href="<?php echo $feeds_feedburner_rss; ?>" title="Follow with Feed RSS" target="_blank">
 <img src="<?php echo elgg_get_site_url(); ?>mod/timeline_theme/graphics/images/social-icons/feed-rss.gif" /></a>
 
 
@@ -387,8 +527,158 @@ $display = "<div id=\"photo-elggheader\">" . $icon . "</div>";
                        
 
 </div>	<!-- #branding -->
+
 	
-	
+
+<script>
+function myFunction()
+{
+alert("If you like to use this profile photo photo on your profile timeline,  remember to click save button");
+}
+
+</script>
+<script>
+
+function uploadtimelineFunction()
+{
+alert("Please upload a cover photo file with width= 1000 pixels by height= 288 pixels for better results. Remember to click save button");
+}
+
+
+
+
+</script>	
+
+
 
 </div>
 
+<div id="usermenubranding" >  <!-- open user menu -->
+	<?php 
+	
+	
+	if (elgg_is_logged_in()) {
+	
+		$user = elgg_get_logged_in_user_entity();
+		
+		if ($owner->guid == $user->guid) {
+		
+					echo elgg_view('output/url', array(
+					       //   'id'  => 'usermenubranding',
+						'class' => 'homepage_join_link tom-button tom-button-special',
+						'href' => '/mod/timeline_theme/background.php', 
+						'text' => elgg_view_icon('users') . elgg_echo('Add Cover photo'),
+					//	'link_class' => 'tom-button tom-button-delete',
+					
+					'contexts' => array('profile'),
+					
+					'priority' => 1,
+					
+					));
+
+
+                                            echo elgg_view('output/url', array(
+						'class' => 'homepage_color_link tom-button tom-button-special',
+						'href' => '/mod/timeline_theme/colors.php', 
+						'text' => elgg_view_icon('users') . elgg_echo('Change Color'),
+					//	'link_class' => 'tom-button tom-button-delete',
+					
+					'contexts' => array('profile'),
+					
+					'priority' => 2,// priority don't work at the moment
+					
+					));
+
+
+                                    
+
+                                            echo elgg_view('output/url', array(
+						'class' => 'homepage_profile_link tom-button tom-button-special',
+						'href' => '/profile/$user->username', 
+						
+						'name' => 'editprofile',
+                                                'href' => "/profile/$user->username/edit",
+						'text' => elgg_view_icon('users') . elgg_echo('profile:edit'),
+						
+						
+					//	'link_class' => 'tom-button tom-button-delete',
+					
+					'contexts' => array('profile'),
+					
+					'priority' => 3,// priority don't work at the moment
+					
+					));
+                                     }
+                                     
+                                     }
+
+			// Our shearch bar
+	//	echo elgg_view('search/header',array(
+
+?>
+
+ </div>  <!-- close user buttons   -->
+
+
+
+
+
+
+<div>
+<!-- TM start modify  -->
+
+           <?php
+           
+       
+           
+           if (array_key_exists('value', $vars)) {
+                    $value = $vars['value'];
+            } elseif ($value = get_input('q', get_input('tag', NULL))) {
+                    $value = $value;
+            } else {
+                    $value = elgg_echo('Search for places, people, and many more...');
+            }
+            
+
+            // @todo - why the strip slashes?
+            $value = stripslashes($value);
+
+            // @todo - create function for sanitization of strings for display in 1.8
+            // encode <,>,&, quotes and characters above 127
+            if (function_exists('mb_convert_encoding')) {
+                    $display_query = mb_convert_encoding($value, 'HTML-ENTITIES', 'UTF-8');
+            } else {
+                    // if no mbstring extension, we just strip characters
+                    $display_query = preg_replace("/[^\x01-\x7F]/", "", $value);
+            }
+            $display_query = htmlspecialchars($display_query, ENT_QUOTES, 'UTF-8', false);
+           
+           
+           
+            ?>
+      
+      <?php
+      if (elgg_is_logged_in()) {
+         ?>   
+        <div id="searchbranding" >    
+         
+            <form action="<?php echo elgg_get_site_url(); ?>search" method="get">
+                <div class="searchk_area">
+                    <input type="text" class="searchk_txt left" name="q" maxlength="59" spellcheck="false" autocomplete="off"value="<?php echo elgg_echo('Search for places, people, and many more...'); ?>" onblur="if (this.value=='') { this.value='<?php echo elgg_echo('Search for places, people, and many more...'); ?>' }" onfocus="if (this.value=='<?php echo elgg_echo('Search for places, people, and many more...'); ?>') { this.value='' };" />
+                    <input type="submit" class="searchk_btn right"  value="<?php echo elgg_echo('search:go'); ?>"/>
+                </div>
+                <div class="clear"></div>
+            </form>
+ 
+
+
+
+<!--# TM end search  -->
+
+</div> <!-- # End of search section         -->
+
+<?php
+}
+?>
+	
+	</div> <!-- # End of Header  container         -->
